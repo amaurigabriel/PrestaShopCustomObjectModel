@@ -1,6 +1,10 @@
 <?php
 class CustomObjectModel extends ObjectModel
 {
+    /**
+     * return a array with the columns that exists in the
+     * table relative to the ObjectModel
+     */
     public function getDatabaseColumns()
     {
         $definition = ObjectModel::getDefinition($this);
@@ -10,6 +14,29 @@ class CustomObjectModel extends ObjectModel
         return Db::getInstance()->executeS($sql);
     }
 
+    /**
+     * return a column in the tablerelative to the ObjectModel.
+     * this method uses the $definition property of the ObjectModel,
+     * with some extra properties.
+     *
+     * Example:
+     * 'table'        => 'tablename',
+     * 'primary'      => 'id',
+     * 'fields'       => [
+     *     'id'     => ['type' => self::TYPE_INT, 'validate' => 'isInt'],
+     *     'number' => [
+     *         'type'     => self::TYPE_STRING,
+     *         'db_type'  => 'varchar(20)',
+     *         'required' => true,
+     *         'default'  => '25'
+     *     ],
+     * ],
+     *
+     * The primary column is created automatically as INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT. The other columns
+     * require an extra parameter, with the type of the column in the database.
+     *
+     *
+     */
     public function createColumn(
         $name,
         $column_definition
@@ -40,6 +67,10 @@ class CustomObjectModel extends ObjectModel
         Db::getInstance()->execute($sql);
     }
 
+    /**
+     *  Create in the database every column detailed in the $definition property that are
+     *  missing in the database.
+     */
     public function createMissingColumns()
     {
         $columns    = $this->getDatabaseColumns();
@@ -66,6 +97,9 @@ class CustomObjectModel extends ObjectModel
         }
     }
 
+    /**
+     *  Create the database table with its columns. Similar to the createColumn() method.
+     */
     public function createDatabase()
     {
         $definition = ObjectModel::getDefinition($this);
