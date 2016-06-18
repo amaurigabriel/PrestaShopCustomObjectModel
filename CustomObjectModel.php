@@ -3,7 +3,7 @@
 class CrudCustomObjectModel extends ObjectModel
 {
     /**
-     * return a array with the columns that exists in the
+     * Return an array with the columns that exists in the
      * table relative to the ObjectModel
      */
     public function getDatabaseColumns()
@@ -16,8 +16,8 @@ class CrudCustomObjectModel extends ObjectModel
     }
 
     /**
-     * return a column in the tablerelative to the ObjectModel.
-     * this method uses the $definition property of the ObjectModel,
+     * Add a column in the table relative to the ObjectModel.
+     * This method uses the $definition property of the ObjectModel,
      * with some extra properties.
      *
      * Example:
@@ -134,10 +134,7 @@ class CrudCustomObjectModel extends ObjectModel
 
         Db::getInstance()->execute($sql);
     }
-
-    /**
-     *
-     */
+    
     public function dropDatabase()
     {
         $definition = ObjectModel::getDefinition($this);
