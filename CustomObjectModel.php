@@ -1,5 +1,6 @@
 <?php
-class CustomObjectModel extends ObjectModel
+
+class CrudCustomObjectModel extends ObjectModel
 {
     /**
      * return a array with the columns that exists in the
@@ -82,7 +83,6 @@ class CustomObjectModel extends ObjectModel
             $exists = false;
             foreach ($columns as $column)
             {
-                p($column);
                 if ($column['COLUMN_NAME'] === $column_name)
                 {
                     $exists = true;
@@ -132,6 +132,17 @@ class CustomObjectModel extends ObjectModel
         $sql = trim($sql, ',');
         $sql .= ')';
 
+        Db::getInstance()->execute($sql);
+    }
+
+    /**
+     *
+     */
+    public function dropDatabase()
+    {
+        $definition = ObjectModel::getDefinition($this);
+        $sql = 'DROP TABLE ' . _DB_PREFIX_ . $definition['table'];
+        
         Db::getInstance()->execute($sql);
     }
 }
