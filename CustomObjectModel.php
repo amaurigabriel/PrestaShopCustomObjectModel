@@ -63,19 +63,14 @@ class CrudCustomObjectModel extends ObjectModel
 
         $sql .= ' ADD COLUMN ' . $name . ' ' . $column_definition['db_type'];
 
-        if ($field_name === $definition['primary'] && !$column_definition['lang'])
-        {
+        if ($field_name === $definition['primary'] && !$column_definition['lang']) {
             $sql .= ' INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT';
-        }
-        else
-        {
-            if (isset($field['required']) && $field['required'])
-            {
+        } else {
+            if (isset($field['required']) && $field['required']) {
                 $sql .= ' NOT NULL';
             }
 
-            if (isset($field['default']))
-            {
+            if (isset($field['default'])) {
                 $sql .= ' DEFAULT "' . $field['default'] . '"';
             }
         }
@@ -95,8 +90,7 @@ class CrudCustomObjectModel extends ObjectModel
         $multilang = isset($definition['multilang']) && $definition['multilang'];
 
 
-        foreach ($definition['fields'] as $column_name => $column_definition)
-        {
+        foreach ($definition['fields'] as $column_name => $column_definition) {
             //column exists in database
             $exists = false;
 
@@ -111,16 +105,14 @@ class CrudCustomObjectModel extends ObjectModel
                 }
             } else {
                 foreach ($columns['self'] as $column) {
-                    if ($column['COLUMN_NAME'] === $column_name)
-                    {
+                    if ($column['COLUMN_NAME'] === $column_name) {
                         $exists = true;
                         break;
                     }
                 }
             }
 
-            if (!$exists)
-            {
+            if (!$exists) {
                 $this->createColumn($column_name, $column_definition);
             }
         }
@@ -172,10 +164,8 @@ class CrudCustomObjectModel extends ObjectModel
         $sql = 'CREATE TABLE IF NOT EXISTS ' . _DB_PREFIX_ . $definition['table'] . ' (';
         $sql .= $definition['primary'] . ' INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,';
 
-        foreach ($definition['fields'] as $field_name => $field)
-        {
-            if ($field_name === $definition['primary'])
-            {
+        foreach ($definition['fields'] as $field_name => $field) {
+            if ($field_name === $definition['primary']) {
                 continue;
             }
 
@@ -185,13 +175,11 @@ class CrudCustomObjectModel extends ObjectModel
 
             $sql .= $field_name . ' ' . $field['db_type'];
 
-            if (isset($field['required']) && $field['required'])
-            {
+            if (isset($field['required']) && $field['required']) {
                 $sql .= ' NOT NULL';
             }
 
-            if (isset($field['default']))
-            {
+            if (isset($field['default'])) {
                 $sql .= ' DEFAULT "' . $field['default'] . '"';
             }
 
