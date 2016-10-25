@@ -46,7 +46,7 @@ class CrudCustomObjectModel extends ObjectModel
      *
      */
     public function createColumn(
-        $name,
+        $field_name,
         $column_definition
     )
     {
@@ -61,7 +61,7 @@ class CrudCustomObjectModel extends ObjectModel
             $sql = 'ALTER TABLE ' . _DB_PREFIX_ . $definition['table'];
         }
 
-        $sql .= ' ADD COLUMN ' . $name . ' ' . $column_definition['db_type'];
+        $sql .= ' ADD COLUMN ' . $field_name . ' ' . $column_definition['db_type'];
 
         if ($field_name === $definition['primary'] && !$column_definition['lang']) {
             $sql .= ' INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT';
